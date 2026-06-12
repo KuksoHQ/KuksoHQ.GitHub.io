@@ -3,8 +3,8 @@ name: Deploy Docusaurus to GitHub Pages
 on:
   push:
     branches:
-      - main # Sadece main branch'e push olunca çalışacak
-  workflow_dispatch: # Manuel çalıştırmak istersen
+      - main
+  workflow_dispatch:
 
 jobs:
   build-deploy:
@@ -12,29 +12,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Kaynak kodu çek
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Node.js kur
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: "npm"
 
-      # 3. Bağımlılıkları yükle
       - name: Install dependencies
         run: npm ci
 
-      # 4. Projeyi build et
       - name: Build Docusaurus site
         run: npm run build
 
-      # CNAME dosyasını build/ içine kopyala
-      - run: cp CNAME build/CNAME
+      - name: Checkout existing GitHub Pages output
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: previous-pages
+          token: ${{ secrets.GH_PAT_PAGES }}
 
-      # 5. GitHub Pages'e deploy et
+      - name: Preserve generated API reference
+        run: |
+          if [ -d previous-pages/api ]; then
+            mkdir -p build/api
+            cp -R previous-pages/api/. build/api/
+          fi
+
+      - name: Copy CNAME
+        run: cp CNAME build/CNAME
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:

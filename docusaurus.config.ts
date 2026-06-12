@@ -106,6 +106,21 @@ const config: Config = {
         },
         {
           type: 'dropdown',
+          label: 'API Reference',
+          position: 'left',
+          items: [
+            {
+              label: 'KuksoLib Minecraft',
+              href: 'https://kukso.com/api/minecraft/lib/latest/',
+            },
+            {
+              label: 'KuksoLib Hytale',
+              href: 'https://kukso.com/api/hytale/lib/latest/',
+            },
+          ],
+        },
+        {
+          type: 'dropdown',
           label: 'Community',
           position: 'left',
           items: [

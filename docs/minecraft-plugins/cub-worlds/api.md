@@ -1,26 +1,15 @@
 ---
 sidebar_position: 3
-sidebar_label: "API"
+sidebar_label: "Developer API"
 ---
 
-# API (Out of service!)
+# Developer API
 
-## Source Code
+KuksoWorlds is a customer-facing Minecraft plugin. Its public documentation is installation, configuration, commands, permissions, and world-management workflows.
 
-The source code can be found [here](https://github.com/CublexLabs/CubWorlds):
+KuksoWorlds does not publish standalone JavaDocs or Maven API coordinates. Developer-facing shared APIs are documented through KuksoLib:
 
-## API
+- [KuksoLib Minecraft API Reference](https://kukso.com/api/minecraft/lib/latest/)
+- [KuksoLib JavaDoc Standard](../../standards/javadocs.md)
 
-Add this to your build.gradle:
-
-```java
-repositories {
-    maven("")
-}
-
-dependencies {
-    compileOnly("io.github.devbd1:cubWorlds:<version>")
-}
-```
-
-The latest version available on the repo can be found [here](https://github.com/CublexLabs/CubWorlds/tags)
+Use this page as the policy marker for future work: product docs belong in Docusaurus, generated JavaDocs belong only to KuksoLib.
